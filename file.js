@@ -1,13 +1,20 @@
 const fs = require('fs')
 
-for (let x = 0; x < 22; x++) {
-  console.log(x)
-}
-
 const content = 'Hello!'
 
-fs.writeFile('./test.txt', content, err => {
-  if (err) {
+const writeTestFile = (fileName, directory) => {
+  try {
+    fs.writeFileSync(`${directory}${fileName}.txt`, content)
+    console.log(`wrote file: ${fileName}`)
+  } catch (err) {
     console.error(err)
   }
-})
+}
+
+if (!fs.existsSync('./test')) {
+  fs.mkdirSync('./test')
+} else {
+  for (let x = 0; x < 22; x++) {
+    writeTestFile(x, './test/')
+  }
+}
