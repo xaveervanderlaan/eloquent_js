@@ -11,10 +11,15 @@ const writeTestFile = (fileName, directory) => {
   }
 }
 
-if (!fs.existsSync('./test')) {
-  fs.mkdirSync('./test')
-} else {
-  for (let x = 0; x < 22; x++) {
-    writeTestFile(x, './test/')
+const generateFiles = () => {
+  if (!fs.existsSync('./test')) {
+    fs.mkdirSync('./test')
+    generateFiles()
+  } else {
+    for (let x = 0; x < 22; x++) {
+      writeTestFile(x, './test/')
+    }
   }
 }
+
+generateFiles()
