@@ -6,7 +6,7 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
-const content = 'console.log(\'Hello Person!\')'
+const content = 'console.log(\'Hello Person!\')\n'
 
 const createFile = (fileName, directory, extension) => {
   try {
