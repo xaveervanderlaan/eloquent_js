@@ -8,9 +8,9 @@ const rl = readline.createInterface({
 
 const content = 'Hello!'
 
-const createFile = (fileName, directory) => {
+const createFile = (fileName, directory, extension) => {
   try {
-    fs.writeFileSync(`${directory}${fileName}.txt`, content)
+    fs.writeFileSync(`${directory}${fileName}.${extension}`, content)
     console.log(`wrote file: ${fileName}`)
   } catch (err) {
     console.error(err)
@@ -47,29 +47,31 @@ const convertYnAnswer = (ynAnswer) => {
 const generateFiles = () => {
   rl.question('Folder name?\n', (folderName) => {
     fs.mkdirSync(`./${folderName}`)
-    rl.question('How many files do you want? \n', (amount) => {
-      rl.question('Do you want a folder for every file?\n', (ynAnswer) => {
-        let x
+    rl.question('File extension? \n', (extension) => {
+      rl.question('How many files do you want? \n', (amount) => {
+        rl.question('Do you want a folder for every file?\n', (ynAnswer) => {
+          let x
 
-        const niceYnAnswer = convertYnAnswer(ynAnswer)
+          const niceYnAnswer = convertYnAnswer(ynAnswer)
 
-        const folderPath = `./${folderName}/`
+          const folderPath = `./${folderName}/`
 
-        if (amount === '0') {
-          console.error('ERROR - 0 is not allowed')
-        } else {
-          for (x = 0; x < amount; x++) {
-            if (niceYnAnswer) {
-              const nestedPath = `${folderPath}${x}/`
+          if (amount === '0') {
+            console.error('ERROR - 0 is not allowed')
+          } else {
+            for (x = 1; x <= amount; x++) {
+              if (niceYnAnswer) {
+                const nestedPath = `${folderPath}${x}/`
 
-              createFolder(nestedPath)
-              createFile(x, nestedPath)
-            } else {
-              createFile(x, folderPath)
+                createFolder(nestedPath)
+                createFile(x, nestedPath, extension)
+              } else {
+                createFile(x, folderPath, extension)
+              }
             }
           }
-        }
-        rl.close()
+          rl.close()
+        })
       })
     })
   })
