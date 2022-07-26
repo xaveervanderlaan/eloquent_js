@@ -1,7 +1,8 @@
 module.exports = {
   env: {
     es2021: true,
-    node: true
+    node: true,
+    jest: true
   },
   extends: [
     'standard'
@@ -11,5 +12,8 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-  }
+  },
+  plugins: [
+    'jest'
+  ]
 }
